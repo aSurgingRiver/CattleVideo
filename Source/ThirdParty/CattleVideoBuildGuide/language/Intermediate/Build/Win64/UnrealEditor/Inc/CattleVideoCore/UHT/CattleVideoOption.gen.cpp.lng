@@ -17,7 +17,7 @@ class UScriptStruct* FCattleVideoOption::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_CattleVideoOption.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_CattleVideoOption.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FCattleVideoOption, (UObject*)Z_Construct_UPackage__Script_CattleVideoCore(), TEXT("CattleVideoOption"));
+		Z_Registration_Info_UScriptStruct_CattleVideoOption.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FCattleVideoOption, Z_Construct_UPackage__Script_CattleVideoCore(), TEXT("CattleVideoOption"));
 	}
 	return Z_Registration_Info_UScriptStruct_CattleVideoOption.OuterSingleton;
 }

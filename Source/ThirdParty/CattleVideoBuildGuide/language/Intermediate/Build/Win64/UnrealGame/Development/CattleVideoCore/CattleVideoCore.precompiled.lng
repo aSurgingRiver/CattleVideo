@@ -1,5 +1,5 @@
 {
 	"OutputFiles": [
-		"..\\..\\..\\x64\\UnrealGame\\Development\\CattleVideoCore\\Module.CattleVideoCore.cpp.obj"
+		"Module.CattleVideoCore.cpp.obj"
 	]
 }
