@@ -1,0 +1,28 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+// IWYU pragma: private, include "CattleVideoOption.h"
+#include "UObject/ObjectMacros.h"
+#include "UObject/ScriptMacros.h"
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+#ifdef CATTLEVIDEOCORE_CattleVideoOption_generated_h
+#error "CattleVideoOption.generated.h already included, missing '#pragma once' in CattleVideoOption.h"
+#endif
+#define CATTLEVIDEOCORE_CattleVideoOption_generated_h
+
+#define FID_HostProject_Plugins_CattleVideo_Source_CattleVideoCore_Public_CattleVideoOption_h_15_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FCattleVideoOption_Statics; \
+	static class UScriptStruct* StaticStruct();
+
+
+template<> CATTLEVIDEOCORE_API UScriptStruct* StaticStruct<struct FCattleVideoOption>();
+
+#undef CURRENT_FILE_ID
+#define CURRENT_FILE_ID FID_HostProject_Plugins_CattleVideo_Source_CattleVideoCore_Public_CattleVideoOption_h
+
+
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
