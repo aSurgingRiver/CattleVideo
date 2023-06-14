@@ -9,7 +9,7 @@ using System.IO.Compression;
 
 // Tools.DotNETCommon ;
 // EpicGames.Core ;
-using EpicGames.Core;
+using Tools.DotNETCommon;
 
 public class CattleVideoCore : ModuleRules
 {

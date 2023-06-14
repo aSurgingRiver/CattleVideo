@@ -1,0 +1,8 @@
+{
+	"BuildId": "17155196",
+	"Modules": 
+	{
+		"CattleVideo": "UE4Editor-CattleVideo.dll",
+		"CattleVideoCore": "UE4Editor-CattleVideoCore.dll"
+	}
+}

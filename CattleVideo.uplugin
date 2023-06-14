@@ -10,7 +10,7 @@
   "DocsURL": "",
   "MarketplaceURL": "",
   "SupportURL": "",
-  "EngineVersion": "5.2.0",
+  "EngineVersion": "4.27.0",
   "CanContainContent": true,
   "Installed": true,
   "Modules": [
@@ -18,7 +18,7 @@
       "Name": "CattleVideoCore",
       "Type": "Runtime",
       "LoadingPhase": "Default",
-      "PlatformAllowList": [
+      "WhitelistPlatforms": [
         "Win64",
         "Linux",
         "Mac"
@@ -28,7 +28,7 @@
       "Name": "CattleVideo",
       "Type": "Runtime",
       "LoadingPhase": "PreDefault",
-      "PlatformAllowList": [
+      "WhitelistPlatforms": [
         "Win64",
         "Linux",
         "Mac"
