@@ -6,18 +6,38 @@
 #include "UObject/NoExportTypes.h"
 #include "Slate/SlateTextures.h"
 #include "Textures/SlateShaderResource.h"
+#include <memory>
 struct FCattleVideoOption;
 class FSlateShaderResource;
-
+class FCattleVideoSoundGenerator;
 /**
  * 
  */
+
+namespace cattlevideo {
+	struct VideoSize {
+		std::atomic<int>  width;
+		std::atomic<int>  height;
+	};
+}
+
 class CATTLEVIDEOCORE_API UCattleVideoControl
 {
 public:
+	DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnLoadStatus, FString, int, FString);
+	virtual FOnLoadStatus& OnLoadStatus()=0;
 	virtual FSlateShaderResource* GetTargetTexture();
 	virtual void Close();
 	virtual bool Open(FString URL, FCattleVideoOption& option);
+	virtual void SetSound(TSharedPtr<FCattleVideoSoundGenerator, ESPMode::ThreadSafe> SoundGenerator);
+	virtual void Pause();
+	virtual void Resume();
+	virtual void Speed(uint32);
+	virtual void AddSize(std::shared_ptr<cattlevideo::VideoSize> size);
+	virtual void DelSize(std::shared_ptr<cattlevideo::VideoSize> size);
+	virtual int  Duration();
+	virtual bool Seek(int ms);
+	virtual void ProgressSynchro(bool synchro);
 	virtual ~UCattleVideoControl();
 	UCattleVideoControl();
 };

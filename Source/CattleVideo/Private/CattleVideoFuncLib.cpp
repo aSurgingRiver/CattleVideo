@@ -2,9 +2,10 @@
 
 
 #include "CattleVideoFuncLib.h"
+#include "CattleVideo.h"
 
 
 UCattleVideo* UCattleVideoFuncLib::Copy(UCattleVideo* from, UCattleVideo* to) {
-	to->CopyFrom(from);
+	if(to)to->CopyFrom(from);
 	return to;
 }

@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeCattleVideoCore_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x7F323CF6,
-				0x4D5992E4,
+				0xD6A1406F,
+				0x2A3405D8,
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_CattleVideoCore.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_CattleVideoCore.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_CattleVideoCore(Z_Construct_UPackage__Script_CattleVideoCore, TEXT("/Script/CattleVideoCore"), Z_Registration_Info_UPackage__Script_CattleVideoCore, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x7F323CF6, 0x4D5992E4));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_CattleVideoCore(Z_Construct_UPackage__Script_CattleVideoCore, TEXT("/Script/CattleVideoCore"), Z_Registration_Info_UPackage__Script_CattleVideoCore, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xD6A1406F, 0x2A3405D8));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
