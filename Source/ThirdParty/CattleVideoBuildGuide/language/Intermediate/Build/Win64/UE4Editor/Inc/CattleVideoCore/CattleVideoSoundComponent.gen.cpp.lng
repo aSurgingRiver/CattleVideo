@@ -1,0 +1,87 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/GeneratedCppIncludes.h"
+#include "CattleVideoCore/Private/CattleVideoSoundComponent.h"
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable : 4883)
+#endif
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+void EmptyLinkFunctionForGeneratedCodeCattleVideoSoundComponent() {}
+// Cross Module References
+	CATTLEVIDEOCORE_API UClass* Z_Construct_UClass_UCattleVideoSoundComponent_NoRegister();
+	CATTLEVIDEOCORE_API UClass* Z_Construct_UClass_UCattleVideoSoundComponent();
+	AUDIOMIXER_API UClass* Z_Construct_UClass_USynthComponent();
+	UPackage* Z_Construct_UPackage__Script_CattleVideoCore();
+// End Cross Module References
+	void UCattleVideoSoundComponent::StaticRegisterNativesUCattleVideoSoundComponent()
+	{
+	}
+	UClass* Z_Construct_UClass_UCattleVideoSoundComponent_NoRegister()
+	{
+		return UCattleVideoSoundComponent::StaticClass();
+	}
+	struct Z_Construct_UClass_UCattleVideoSoundComponent_Statics
+	{
+		static UObject* (*const DependentSingletons[])();
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
+#endif
+		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
+		static const UE4CodeGen_Private::FClassParams ClassParams;
+	};
+	UObject* (*const Z_Construct_UClass_UCattleVideoSoundComponent_Statics::DependentSingletons[])() = {
+		(UObject* (*)())Z_Construct_UClass_USynthComponent,
+		(UObject* (*)())Z_Construct_UPackage__Script_CattleVideoCore,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UCattleVideoSoundComponent_Statics::Class_MetaDataParams[] = {
+		{ "BlueprintSpawnableComponent", "" },
+		{ "ClassGroupNames", "Synth" },
+		{ "HideCategories", "Object ActorComponent Physics Rendering Mobility LOD Trigger PhysicsVolume" },
+		{ "IncludePath", "CattleVideoSoundComponent.h" },
+		{ "ModuleRelativePath", "Private/CattleVideoSoundComponent.h" },
+	};
+#endif
+	const FCppClassTypeInfoStatic Z_Construct_UClass_UCattleVideoSoundComponent_Statics::StaticCppClassTypeInfo = {
+		TCppClassTypeTraits<UCattleVideoSoundComponent>::IsAbstract,
+	};
+	const UE4CodeGen_Private::FClassParams Z_Construct_UClass_UCattleVideoSoundComponent_Statics::ClassParams = {
+		&UCattleVideoSoundComponent::StaticClass,
+		"Engine",
+		&StaticCppClassTypeInfo,
+		DependentSingletons,
+		nullptr,
+		nullptr,
+		nullptr,
+		UE_ARRAY_COUNT(DependentSingletons),
+		0,
+		0,
+		0,
+		0x00B000A4u,
+		METADATA_PARAMS(Z_Construct_UClass_UCattleVideoSoundComponent_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UCattleVideoSoundComponent_Statics::Class_MetaDataParams))
+	};
+	UClass* Z_Construct_UClass_UCattleVideoSoundComponent()
+	{
+		static UClass* OuterClass = nullptr;
+		if (!OuterClass)
+		{
+			UE4CodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_UCattleVideoSoundComponent_Statics::ClassParams);
+		}
+		return OuterClass;
+	}
+	IMPLEMENT_CLASS(UCattleVideoSoundComponent, 2869532813);
+	template<> CATTLEVIDEOCORE_API UClass* StaticClass<UCattleVideoSoundComponent>()
+	{
+		return UCattleVideoSoundComponent::StaticClass();
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_UCattleVideoSoundComponent(Z_Construct_UClass_UCattleVideoSoundComponent, &UCattleVideoSoundComponent::StaticClass, TEXT("/Script/CattleVideoCore"), TEXT("UCattleVideoSoundComponent"), false, nullptr, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(UCattleVideoSoundComponent);
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif

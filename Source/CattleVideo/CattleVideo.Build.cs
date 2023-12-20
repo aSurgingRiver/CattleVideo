@@ -1,5 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
+using System.IO;
+using System.Text;
+using System;
 using UnrealBuildTool;
 
 public class CattleVideo : ModuleRules
@@ -67,5 +70,42 @@ public class CattleVideo : ModuleRules
 				}
 			);
 		}
-	}
+        string projFile = Target.ProjectFile.ToString();
+        ConfigGame(Path.GetDirectoryName(projFile));
+    }
+	void ConfigGame(string ProjectDir) {
+        string GamePath = Path.Combine(ProjectDir, "Config");
+        string GameCfg = Path.Combine(GamePath, "DefaultGame.ini");
+        if (!Directory.Exists(GamePath))
+        {
+            Directory.CreateDirectory(GamePath);
+        }
+        if (!File.Exists(GameCfg))
+        {
+            File.Create(GameCfg);
+        }
+        //if( File.OpenWrite(GameCfg)) return ;
+        string content;
+        try { content = File.ReadAllText(GameCfg/*, Encoding.UTF8*/); }
+        catch
+        {//
+            return;
+        }
+        string licensePak = "+DirectoriesToAlwaysStageAsUFS=(Path=\"license\")";
+        string licenseNode = "[/Script/UnrealEd.ProjectPackagingSettings]";
+        if (content.Contains(licenseNode))
+        {
+            if (content.Contains(licensePak))
+            {
+                Console.WriteLine(GameCfg + " has configure!");
+                return;//
+            }
+            content = content.Replace(licenseNode, licenseNode + "\n" + licensePak);
+        }
+        else
+        {
+            content += "\n\n" + licenseNode + "\n" + licensePak;
+        }
+        File.WriteAllText(GameCfg, content, Encoding.UTF8);
+    }
 }

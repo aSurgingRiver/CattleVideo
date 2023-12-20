@@ -21,8 +21,8 @@ void EmptyLinkFunctionForGeneratedCodeCattleVideoCore_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x9FD08C07,
-				0x4D5992E4,
+				0xB4ABB326,
+				0xE4B6E940,
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UE4CodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);

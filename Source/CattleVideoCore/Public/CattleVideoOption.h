@@ -15,27 +15,35 @@ struct CATTLEVIDEOCORE_API FCattleVideoOption
 	GENERATED_USTRUCT_BODY()
 public:
 	/** Package Cache Number */
-	UPROPERTY(BlueprintReadWrite, meta = (DisplayName = "Package Cache Number", UIMin = 30), Category = "Ant Vedio")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Package Cache Number", UIMin = 30), Category = "Cattle Video")
 	int PkgCacheNumber;
 
 	/** Package Cache Number */
-	UPROPERTY(BlueprintReadWrite, meta = (DisplayName = "Wait Time", UIMin = 1), Category = "Ant Vedio")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Wait Time", UIMin = 1), Category = "Cattle Video")
 	int WaitTime;
 
 	/** Package Cache Number */
-	UPROPERTY(BlueprintReadWrite, meta = (DisplayName = "Hard ware"), Category = "Ant Vedio")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Hard ware"), Category = "Cattle Video")
 	bool Hardware;
 
 	/** Repeat Play */
-	UPROPERTY(BlueprintReadWrite, meta = (DisplayName = "Repeat Play"), Category = "Ant Vedio")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Repeat Play"), Category = "Cattle Video")
 	bool Repeat;
+
+	/** Repeat Play */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Silent"), Category = "Cattle Video")
+	bool Silent;
+
+	/** Repeat Play */
+	//UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "Auto Size"), Category = "Cattle Video")
+	//bool AutoSize;
 
 	/**
 	* param for avformat_open_input
 	* timeout 1000 ms
 	* scan_all_pmts 1
 	**/
-	UPROPERTY(BlueprintReadWrite, meta = (DisplayName = "FFmpeg Dictionary"), Category = "Ant Vedio")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (DisplayName = "FFmpeg Dictionary"), Category = "Cattle Video")
 	TMap<FString, FString> FFmpegDictionary;
 
 	FCattleVideoOption();
