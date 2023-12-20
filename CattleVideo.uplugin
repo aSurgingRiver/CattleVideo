@@ -1,45 +1,45 @@
 {
-  "FileVersion": 3,
-  "Version": 1,
-  "VersionName": "1.0",
-  "FriendlyName": "CattleVideo",
-  "Description": "FFmpeg player",
   "Category": "Other",
-  "CreatedBy": "aSurgingRiver",
-  "CreatedByURL": "",
+  "FileVersion": 3,
   "DocsURL": "",
-  "MarketplaceURL": "",
-  "SupportURL": "",
-  "EngineVersion": "5.2.0",
-  "CanContainContent": true,
-  "Installed": true,
   "Modules": [
     {
-      "Name": "CattleVideoCore",
-      "Type": "Runtime",
-      "LoadingPhase": "Default",
       "PlatformAllowList": [
         "Win64",
         "Linux",
         "Mac"
-      ]
+      ],
+      "Type": "Runtime",
+      "Name": "CattleVideoCore",
+      "LoadingPhase": "Default"
     },
     {
-      "Name": "CattleVideo",
-      "Type": "Runtime",
-      "LoadingPhase": "PreDefault",
       "PlatformAllowList": [
         "Win64",
         "Linux",
         "Mac"
-      ]
+      ],
+      "Type": "Runtime",
+      "Name": "CattleVideo",
+      "LoadingPhase": "PreDefault"
     }
   ],
+  "MarketplaceURL": "",
   "Plugins": [
     {
-      "Name": "OpenCV",
-      "Enabled": false
+      "Enabled": false,
+      "Name": "OpenCV"
     }
   ],
-  "EnabledByDefault": false
+  "CanContainContent": true,
+  "Installed": true,
+  "CreatedBy": "aSurgingRiver",
+  "Version": 1,
+  "VersionName": "1.0",
+  "EngineVersion": "5.3.0",
+  "FriendlyName": "CattleVideo",
+  "EnabledByDefault": false,
+  "SupportURL": "",
+  "CreatedByURL": "",
+  "Description": "FFmpeg player"
 }

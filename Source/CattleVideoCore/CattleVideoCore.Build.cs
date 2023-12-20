@@ -22,7 +22,10 @@ public class CattleVideoCore : ModuleRules
         {
             PrecompileForTargets = PrecompileTargetsType.None;
         }
-        else if(isDependPlugin("OpenCV")) {// use for test
+		else{
+		    PrecompileForTargets = PrecompileTargetsType.Any;
+		}
+        if(isDependPlugin("OpenCV")) {// use for test
             PrivateDependencyModuleNames.AddRange( new string[] { "OpenCV", "OpenCVHelper" }  );
         }
 
@@ -72,6 +75,7 @@ public class CattleVideoCore : ModuleRules
 				"Engine",
 				"FFmpegForUe",
                 "Projects",
+                "AudioMixer",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
