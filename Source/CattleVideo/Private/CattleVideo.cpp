@@ -8,7 +8,8 @@
 #include "CattleVideoOption.h"
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Text/STextBlock.h"
-
+#include "Engine/World.h"
+#include "CattleVideoActor.h"
 #define LOCTEXT_NAMESPACE "CattleVideo"
 
 //
@@ -56,10 +57,14 @@ TSharedRef<SWidget> UCattleVideo::RebuildWidget() {
 	Viewport = MakeShared<FCattleVideoViewport>();
 	Viewport->SetControl(Control);
 	viewportS->SetViewportInterface(Viewport.ToSharedRef());
+	SoundActor = GetWorld()->SpawnActor<ACattleVideoActor>();
+	SoundActor->SetContorl(Control);
+	load_status_handle = Control->OnLoadStatus().AddUObject(this, &UCattleVideo::OnLoadStatusH);
 	return Widget;
 }
 
 bool UCattleVideo::Open(FString URL, FCattleVideoOption Option) {
+	SoundActor->Slient(Option.Silent);
 	return Control ? Control->Open(URL, Option) : false;
 }
 
@@ -67,10 +72,15 @@ void UCattleVideo::Close() {
 	if (Control)Control->Close();
 }
 
+void UCattleVideo::Slient(bool S) {
+	SoundActor->Slient(S);
+}
+
 FCattleVideoOption UCattleVideo::DefaultOption() {
 	FCattleVideoOption Opt;
 	Opt.PkgCacheNumber = 30;
 	Opt.Repeat = false;
+	Opt.Silent = false;
 	/**
 	*  stimeout 5000000 链接超时时间
 	*  rtsp_transport tcp/udp  设置rtsp链接方式
@@ -88,13 +98,64 @@ FCattleVideoOption UCattleVideo::DefaultOption() {
 
 void UCattleVideo::BeginDestroy() {
 	Super::BeginDestroy();
+	if (load_status_handle.IsValid()&& Control.IsValid()) {
+		Control->OnLoadStatus().Remove(load_status_handle);
+	}
 	Viewport = nullptr;
 	Control = nullptr;
 }
 
 void UCattleVideo::CopyFrom(UCattleVideo* From) {
+	if (load_status_handle.IsValid() && Control.IsValid()) {
+		Control->OnLoadStatus().Remove(load_status_handle);
+	}
+	load_status_handle = Control->OnLoadStatus().AddUObject(this, &UCattleVideo::OnLoadStatusH);
 	Control = From->Control;
 	if (Viewport)Viewport->SetControl(Control);
+	SoundActor = From->SoundActor;
+}
+
+void UCattleVideo::Pause() {
+	if (Control)Control->Pause();
+}
+
+void UCattleVideo::Resume() {
+	if (Control)Control->Resume();
+}
+
+void UCattleVideo::Volume(int value) {
+	value = FMath::Clamp(value,0,500);
+	if (SoundActor)SoundActor->Volume(value);
+}
+
+void UCattleVideo::Speed(CATTLE_VIDEO_SPEED value) {
+	uint32 speed;
+	switch (value) {
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_050: speed = 50; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_075: speed = 75; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_100: speed = 100; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_125: speed = 125; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_150: speed = 150; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_175: speed = 175; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_200: speed = 200; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_225: speed = 225; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_250: speed = 250; break;
+		case	CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_300: speed = 300; break;
+		default: speed = 100;
+	}
+	if (Control)Control->Speed(speed);
+}
+
+int UCattleVideo::Duration() const {
+	return (Control)?Control->Duration():0;
+}
+
+bool UCattleVideo::Seek(int ms) {
+	return (Control) ? Control->Seek(ms) : false;
+}
+
+void UCattleVideo::OnLoadStatusH(FString URL, int status, FString Desc) {
+	if (OnLoadStatus.IsBound())	OnLoadStatus.Broadcast(URL,status, Desc);
 }
 
 

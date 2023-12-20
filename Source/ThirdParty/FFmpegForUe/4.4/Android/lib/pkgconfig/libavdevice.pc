@@ -1,0 +1,14 @@
+prefix=/media/yht/B/opencode/FFmpeg-n4.4.4.aarch64/android/arm64-v8a
+exec_prefix=${prefix}
+libdir=/media/yht/B/opencode/FFmpeg-n4.4.4.aarch64/android/arm64-v8a/lib
+includedir=/media/yht/B/opencode/FFmpeg-n4.4.4.aarch64/android/arm64-v8a/include
+
+Name: libavdevice
+Description: FFmpeg device handling library
+Version: 58.13.100
+Requires: libavfilter >= 7.110.100, libswscale >= 5.9.100, libavformat >= 58.76.100, libavcodec >= 58.134.100, libswresample >= 3.9.100, libavutil >= 56.70.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavdevice -lm -latomic
+Libs.private: 
+Cflags: -I${includedir}
