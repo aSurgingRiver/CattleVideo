@@ -5,13 +5,15 @@
 #include "CoreMinimal.h"
 #include "Components/Widget.h"
 #include <memory>
+#include "Delegates/DelegateCombinations.h"
+#include "Containers/Map.h"
 #include "CattleVideoOption.h"
 #include "CattleVideo.generated.h"
 
+class ACattleVideoActor;
 class FCattleVideoViewport;
 class UCattleVideoControl;
 struct FCattleVideoOption;
-
 //UCLASS()
 //class CattleVideo_API UCattleVideoCopy : public UObject
 //{
@@ -22,29 +24,87 @@ struct FCattleVideoOption;
 //	std::shared_ptr<UCattleVideoControl> _Control;
 //};
 
+UENUM(BlueprintType, Blueprintable)
+enum class CATTLE_VIDEO_SPEED : uint8{
+	CATTLE_VIDEO_SPEED_050  UMETA(DisplayName = "0.5x"),     // 0.5
+	CATTLE_VIDEO_SPEED_075  UMETA(DisplayName = "0.75x"),     // 0.75
+	CATTLE_VIDEO_SPEED_100  UMETA(DisplayName = "1.0x"),    // 1.0
+	CATTLE_VIDEO_SPEED_125  UMETA(DisplayName = "1.25x"),    // 1.25
+	CATTLE_VIDEO_SPEED_150  UMETA(DisplayName = "1.5x"),    // 1.5
+	CATTLE_VIDEO_SPEED_175  UMETA(DisplayName = "1.75x"),    // 1.75
+	CATTLE_VIDEO_SPEED_200  UMETA(DisplayName = "2.0x"),    // 2
+	CATTLE_VIDEO_SPEED_225  UMETA(DisplayName = "2.25x"),    // 2.25
+	CATTLE_VIDEO_SPEED_250  UMETA(DisplayName = "2.5x"),    // 2.5
+	CATTLE_VIDEO_SPEED_300  UMETA(DisplayName = "3.0x"),    // 3
+};
+
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class CATTLEVIDEO_API UCattleVideo : public UWidget
 {
 	GENERATED_UCLASS_BODY()
 public:
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnLoadStatus, FString, URL, int, status,FString,Desc);
+public:
+	UPROPERTY(BlueprintAssignable, Category = "Cattle Video")
+	FOnLoadStatus OnLoadStatus;
 	/**
 	 * Open the specified URL or file
 	 */
-	UFUNCTION(BlueprintCallable, Category = "Ant Cattle")
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
 	bool Open(FString URL, FCattleVideoOption Option);
 	/**
 	 * Close vedio
 	 */
-	UFUNCTION(BlueprintCallable, Category = "Ant Cattle")
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
 	void Close();
 	/**
 	 * Default Option
 	 */
-	UFUNCTION(BlueprintCallable, Category = "Ant Cattle")
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
 	FCattleVideoOption DefaultOption();
+
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
+	void Slient(bool YesNo=false);
+
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
+	void Pause();
+
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
+	void Resume();
+
+	/**
+	 * Sound regulation
+	 * value : Zoom factor,if zero will Turn off sound.
+	 *         100 No sound amplification or reduction .
+	 *         Max 500
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
+	void Volume(int value=100);
+
+	/**
+	 * Sound speed
+	 * value : Zoom factor,if zero will Turn off sound.
+	 *         100 No sound amplification or reduction .
+	 *         Max 500
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
+	void Speed(CATTLE_VIDEO_SPEED value= CATTLE_VIDEO_SPEED::CATTLE_VIDEO_SPEED_100);
+
+
+	/**
+	 * Get video total duration ,unit ms
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
+	int Duration() const;
+
+	/**
+	 * Seek video to postion ,unit ms
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
+	bool Seek(int ms);
 
 	void CopyFrom(UCattleVideo* From);
 
@@ -52,7 +112,11 @@ public:
 
 protected:
 	virtual TSharedRef<SWidget> RebuildWidget() override;
+
+	void OnLoadStatusH(FString URL,int status,FString Desc);
 private:
 	TSharedPtr<FCattleVideoViewport> Viewport;
 	TSharedPtr<UCattleVideoControl, ESPMode::ThreadSafe> Control;
+	ACattleVideoActor* SoundActor;
+	FDelegateHandle load_status_handle;
 };

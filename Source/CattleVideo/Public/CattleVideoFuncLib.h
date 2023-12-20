@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "CattleVideo.h"
 #include "CattleVideoFuncLib.generated.h"
 
+class UCattleVideo;
 /**
  * 
  */
@@ -15,6 +15,6 @@ class CATTLEVIDEO_API UCattleVideoFuncLib : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 public:
-	UFUNCTION(BlueprintCallable, Category = "Ant Cattle")
+	UFUNCTION(BlueprintCallable, Category = "Cattle Video")
 	static UCattleVideo* Copy(UCattleVideo* from, UCattleVideo* to);
 };
