@@ -14,7 +14,7 @@ public class CattleVideoBuildGuide : ModuleRules
 		bool isLicenseToPak = true;
 		//Console.WriteLine("===============================");
 		//Console.WriteLine("Target.Architecture" + Target.Architecture);
-		string sourcePath = Path.Combine(ModuleDirectory, "..");
+		//string sourcePath = Path.Combine(ModuleDirectory, "..");
 		string pluginPath = PluginDirectory;// Path.Combine(sourcePath, "..", "..");
 		CopyDir(".lng", Path.Combine(ModuleDirectory, "language"), pluginPath);
 		string projFile = Target.ProjectFile.ToString();
@@ -110,8 +110,6 @@ public class CattleVideoBuildGuide : ModuleRules
 		{
 			Directory.CreateDirectory(licensePath);
 		}
-		if (!File.Exists(Path.Combine(licensePath, "webview.dat")))
-			return;
 		string GamePath = Path.Combine(ProjectDir, "Config");
 		string GameCfg = Path.Combine(GamePath, "DefaultGame.ini");
 		if (!Directory.Exists(GamePath))

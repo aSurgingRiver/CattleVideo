@@ -16,34 +16,85 @@ public class FFmpegForUe : ModuleRules
         //PrintConfig("FFmpegLib");
         string projFile = "" + Target.ProjectFile;
         if (Target.Platform == UnrealTargetPlatform.Win64) {
-            IniFFmpeg_Win("6.0", ""+Target.Platform, Path.GetDirectoryName(projFile));
+            //IniFFmpeg_Win("6.0", "" + Target.Platform, PluginDirectory);
+            IniFFmpeg_Win("6", "0","" + Target.Platform, PluginDirectory);
         }
-        else {
+        else if (Target.Platform == UnrealTargetPlatform.Linux)
+        {
+            IniFFmpeg_Linux("6", "0", "" + Target.Platform, PluginDirectory);
+        }
+        else if (Target.Platform == UnrealTargetPlatform.Android)
+        {
+            if ((""+Target.Architecture) == "Arm64")
+            {
+                IniFFmpeg_Android("4", "4", "Android", PluginDirectory);
+            }
+            else
+            {
+                IniFFmpeg_Android("4", "4", "Android_x86-64", PluginDirectory);
+            }
+        }
+        else
+        {
+            PrintConfig("FFmpegForUe");
             return;
         }
     }
     
-    void IniFFmpeg_Win(string CEFVersion,string Plat, string projectDir)
+    void IniFFmpeg_Win(string major,string minor,string Plat, string projectDir)
     {
-        string CEFRoot = Path.Combine(ModuleDirectory, CEFVersion, Plat);
-        string LibraryPath = Path.Combine(CEFRoot, "lib");
-        PublicSystemIncludePaths.Add(Path.Combine(CEFRoot,"include")); 
-        PublicDefinitions.Add("FFMPEG_VERSION=\"" + CEFVersion + "\""); //
-        foreach (string FileName in Directory.EnumerateFiles(LibraryPath, "*.lib", SearchOption.TopDirectoryOnly)) {
-            PublicAdditionalLibraries.Add(FileName);
-            //Console.WriteLine("PublicAdditionalLibraries=" + FileName);
+        string CEFVersion = major + "." + minor;
+        string PlatRoot = Path.Combine(ModuleDirectory, CEFVersion, Plat);
+        string LibraryPath = Path.Combine(PlatRoot, "lib");
+        PublicSystemIncludePaths.Add(Path.Combine(PlatRoot, "include")); 
+        PublicDefinitions.Add("FFMPEG_MAJOR=" + major + ""); //
+        PublicDefinitions.Add("FFMPEG_MINOR=" + minor + ""); //
+        PublicDefinitions.Add("FFMPEG_PLATFORM=\"" + Plat + "\""); //
+        //string BinPath = Path.Combine(projectDir, "Binaries", Plat);
+        //if (!Directory.Exists(BinPath)) {
+        //    Directory.CreateDirectory(BinPath);
+        //}
+        foreach (string FileName in Directory.EnumerateFiles(LibraryPath, "*.dll", SearchOption.TopDirectoryOnly)) {
+            //string BinFile = Path.Combine(BinPath, System.IO.Path.GetFileName(FileName));
+            RuntimeDependencies.Add(FileName);
         }
+    }
+    void IniFFmpeg_Linux(string major, string minor, string Plat, string projectDir)
+    {
+        string CEFVersion = major + "." + minor;
+        string PlatRoot = Path.Combine(ModuleDirectory, CEFVersion, Plat);
+        string LibraryPath = Path.Combine(PlatRoot, "lib");
+        PublicSystemIncludePaths.Add(Path.Combine(PlatRoot, "include"));
+        PublicDefinitions.Add("FFMPEG_MAJOR=" + major + ""); //
+        PublicDefinitions.Add("FFMPEG_MINOR=" + minor + ""); //
+        PublicDefinitions.Add("FFMPEG_PLATFORM=\"" + Plat + "\""); //
         string BinPath = Path.Combine(projectDir, "Binaries", Plat);
-        if (!Directory.Exists(BinPath)) {
+        if (!Directory.Exists(BinPath))
+        {
             Directory.CreateDirectory(BinPath);
         }
-        foreach (string FileName in Directory.EnumerateFiles(LibraryPath, "*.dll", SearchOption.TopDirectoryOnly)) {
-            string BinFile = Path.Combine(BinPath, System.IO.Path.GetFileName(FileName));
-            //PublicDelayLoadDLLs.Add(System.IO.Path.GetFileName(FileName));
-            if (!File.Exists(BinFile)) {
-                File.Copy(FileName, BinFile);
-            }
-            RuntimeDependencies.Add(BinFile);
+        foreach (string FileName in Directory.EnumerateFiles(LibraryPath, "*.so", SearchOption.TopDirectoryOnly))
+        {
+            RuntimeDependencies.Add(FileName);
+        }
+        foreach (string FileName in Directory.EnumerateFiles(LibraryPath, "*.so.1.1", SearchOption.TopDirectoryOnly))
+        {
+            RuntimeDependencies.Add(FileName);
+        }
+    }
+    void IniFFmpeg_Android(string major, string minor, string Plat, string projectDir)
+    {
+        string CEFVersion = major + "." + minor;
+        string PlatRoot = Path.Combine(ModuleDirectory, CEFVersion, Plat);
+        string LibraryPath = Path.Combine(PlatRoot, "lib");
+        PublicSystemIncludePaths.Add(Path.Combine(PlatRoot, "include"));
+        PublicDefinitions.Add("FFMPEG_MAJOR=" + major + ""); //
+        PublicDefinitions.Add("FFMPEG_MINOR=" + minor + ""); //
+        PublicDefinitions.Add("FFMPEG_PLATFORM=\"" + Plat + "\""); //
+        foreach (string FileName in Directory.EnumerateFiles(LibraryPath, "*.a", SearchOption.TopDirectoryOnly))
+        {
+            PublicAdditionalLibraries.Add(FileName);
+            //RuntimeDependencies.Add(FileName);
         }
     }
     void PrintConfig(string Module) {
@@ -189,7 +240,7 @@ public class FFmpegForUe : ModuleRules
         Console.WriteLine("IOSPlatform=" + Target.IOSPlatform);
         Console.WriteLine("MacPlatform=" + Target.MacPlatform);
         Console.WriteLine("WindowsPlatform=" + Target.WindowsPlatform);
-        Console.WriteLine("HoloLensPlatform=" + Target.HoloLensPlatform);
+        //Console.WriteLine("HoloLensPlatform=" + Target.HoloLensPlatform);
         Console.WriteLine("bShouldCompileAsDLL=" + Target.bShouldCompileAsDLL);
         Console.WriteLine("bGenerateProjectFiles=" + Target.bGenerateProjectFiles);
         Console.WriteLine("bIsEngineInstalled=" + Target.bIsEngineInstalled);
