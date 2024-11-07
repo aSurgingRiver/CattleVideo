@@ -1,0 +1,47 @@
+{
+  "CanContainContent": true,
+  "Category": "Other",
+  "CreatedBy": "aSurgingRiver",
+  "CreatedByURL": "",
+  "Description": "FFmpeg player",
+  "DocsURL": "",
+  "FileVersion": 3,
+  "FriendlyName": "CattleVideo",
+  "Installed": false,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "MarketplaceURL": "",
+  "Modules": [
+    {
+      "LoadingPhase": "Default",
+      "Name": "CattleVideoCore",
+      "PlatformAllowList": [
+        "Win64"
+      ],
+      "Type": "Runtime",
+      "WhitelistPlatforms": [
+        "Win64"
+      ]
+    },
+    {
+      "LoadingPhase": "PreDefault",
+      "Name": "CattleVideo",
+      "PlatformAllowList": [
+        "Win64"
+      ],
+      "Type": "Runtime",
+      "WhitelistPlatforms": [
+        "Win64"
+      ]
+    }
+  ],
+  "Plugins": [
+    {
+      "Enabled": false,
+      "Name": "OpenCV"
+    }
+  ],
+  "SupportURL": "",
+  "Version": 1,
+  "VersionName": "1.0"
+}
